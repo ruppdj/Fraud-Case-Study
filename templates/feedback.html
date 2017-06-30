@@ -20,9 +20,19 @@
     <title>feedback</title>
   </head>
   <body>
+    <!--
+        When switch is ON (switch=1) and user press submit button, codes will delete
+        event information from the database and display this page
+      -->
     {% if nc == 1 %}
     <h1> object id is removed from the database! </h1>
 
+    <!--
+        When switch is OFF (switch=0) and user press submit button, will display
+        this page with a table containing event id, event organization name and
+        their e-mail address.
+        Since we don't have actual email address of organizations, the page
+        will display fake e-mail address (ilovemoney@gmail.com)-->
     {% else %}
     <h1> contact</h1>
     <table>
@@ -40,6 +50,8 @@
     </tr>
   </table>
     {% endif %}
-    <a href= "http://ec2-34-210-33-132.us-west-2.compute.amazonaws.com:5000/score">Back_to_score_page</a>
+    <!-- a link to the previous score page.
+        make sure that the address is correct!-->
+    <a href= "http://0.0.0.0:5000/score">Back_to_score_page</a>
   </body>
 </html>

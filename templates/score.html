@@ -21,21 +21,25 @@
   </head>
   <body>
     <hr>
+    <!-- overall prediction results -->
     <h3>Total number of non-fraud events: {{len_nf}}<br>
-      Total number of possible fraud events: {{len_mb}}<br>
-      Total number of fraud events: {{len_fr}}<br>
+      Total number of possibly fraud events: {{len_mb}}<br>
+      Total number of highly fraud events: {{len_fr}}<br>
     <hr>
-    <h1>not fraud events: </h1>
+    <!-- table for non-fraud events. followings are columns for the table-->
+    <h1>non-fraud events: </h1>
       <table>
       <tr>
       <th>Object_ID</th>
       <th>Organization Name</th>
       <th>Country</th>
-      <th>Not Fraud percentage</th>
-      <th>Possible Fraud percentage</th>
-      <th>Fraud percentage</th>
+      <th>Non-Fraud percentage</th>
+      <th>Possibly Fraud percentage</th>
+      <th>Highly Fraud percentage</th>
       <th>time received</th>
       </tr>
+      <!-- following for loop will import non-fraud events information
+      from  our database -->
       {%for i in nf %}
       <tr>
       <td>{{i.object_id}}</td>
@@ -50,18 +54,21 @@
     </table>
     <br><br>
     <hr>
-    <h1>possibly fraud: </h1>
+    <!-- table for possibly fraud events. followings are columns for the table -->
+    <h1>possibly fraud events: </h1>
       <table>
       <tr>
       <th>Object_ID</th>
       <th>Organization Name</th>
       <th>Country</th>
-      <th>Not Fraud percentage</th>
-      <th>Possible Fraud percentage</th>
-      <th>Fraud percentage</th>
+      <th>Non-Fraud percentage</th>
+      <th>Possibly Fraud percentage</th>
+      <th>Highly Fraud percentage</th>
       <th>time received</th>
       <th>contacted</th>
       </tr>
+      <!-- following for loop will import possibly fraud events information
+      from  our database  -->
       {%for j in mb %}
       <tr>
       <td>{{j.object_id}}</td>
@@ -71,6 +78,13 @@
       <td>{{j.maybe}}</td>
       <td>{{j.fraud}}</td>
       <td>{{j.time_stamp}}</td>
+      <!-- codes for radio buttons
+          When switch is ON (=1) and user press submit button, it will delete
+          event information from the database.
+          When switch is OFF (=0) and user press submit button, it will display
+          event id, event organization name and their e-mail address.
+          Since we don't have actual email address of organizations, the page
+          will display fake e-mail address (ilovemoney@gmail.com)-->
       <td>
         <form action = '{{ url_for('feedback') }}' method= "POST">
         <input type="radio" name=switch value=1 > yes<br>
@@ -84,18 +98,21 @@
       {% endfor %}
     </table>
     <hr>
-    <h1>fraud: </h1>
+    <!-- table for highly fraud events. followings are columns for the table -->
+    <h1>highly fraud events: </h1>
     <table>
     <tr>
     <th>Object_ID</th>
     <th>Organization Name</th>
     <th>Country</th>
-    <th>Not Fraud percentage</th>
-    <th>Possible Fraud percentage</th>
-    <th>Fraud percentage</th>
+    <th>Non-Fraud percentage</th>
+    <th>Possibly Fraud percentage</th>
+    <th>Highly Fraud percentage</th>
     <th>time received</th>
     <th>Contacted</th>
     </tr>
+    <!-- ollowing for loop will import highly fraud events information
+    from  our database -->
     {%for k in fr %}
     <tr>
     <td>{{k.object_id}}</td>
@@ -105,6 +122,13 @@
     <td>{{k.maybe}}</td>
     <td>{{k.fraud}}</td>
     <td>{{k.time_stamp}}</td>
+    <!-- codes for radio buttons
+        When switch is ON (=1) and user press submit button, it will delete
+        event information from the database.
+        When switch is OFF (=0) and user press submit button, it will display
+        event id, event organization name and their e-mail address.
+        Since we don't have actual email address of organizations, the page
+        will display fake e-mail address (ilovemoney@gmail.com)-->
     <td>
         <form action = '{{ url_for('feedback') }}' method= "POST">
         <input type="radio" name=switch value=1 > yes<br>
