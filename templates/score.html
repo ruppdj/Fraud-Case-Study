@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Score_page</title>
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+  </head>
+  <body>
+    <hr>
+    <h3>Total number of non-fraud events: {{len_nf}}<br>
+      Total number of possible fraud events: {{len_mb}}<br>
+      Total number of fraud events: {{len_fr}}<br>
+    <hr>
+    <h1>not fraud events: </h1>
+      <table>
+      <tr>
+      <th>Object_ID</th>
+      <th>Organization Name</th>
+      <th>Country</th>
+      <th>Not Fraud percentage</th>
+      <th>Possible Fraud percentage</th>
+      <th>Fraud percentage</th>
+      <th>time received</th>
+      </tr>
+      {%for i in nf %}
+      <tr>
+      <td>{{i.object_id}}</td>
+      <td>{{i.org_name}}</td>
+      <td>{{i.country}}</td>
+      <td>{{i.not_fraud}}</td>
+      <td>{{i.maybe}}</td>
+      <td>{{i.fraud}}</td>
+      <td>{{i.time_stamp}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <br><br>
+    <hr>
+    <h1>possibly fraud: </h1>
+      <table>
+      <tr>
+      <th>Object_ID</th>
+      <th>Organization Name</th>
+      <th>Country</th>
+      <th>Not Fraud percentage</th>
+      <th>Possible Fraud percentage</th>
+      <th>Fraud percentage</th>
+      <th>time received</th>
+      <th>contacted</th>
+      </tr>
+      {%for j in mb %}
+      <tr>
+      <td>{{j.object_id}}</td>
+      <td>{{j.org_name}}</td>
+      <td>{{j.country}}</td>
+      <td>{{j.not_fraud}}</td>
+      <td>{{j.maybe}}</td>
+      <td>{{j.fraud}}</td>
+      <td>{{j.time_stamp}}</td>
+      <td>
+        <form action = '{{ url_for('feedback') }}' method= "POST">
+        <input type="radio" name=switch value=1 > yes<br>
+        <input type="radio" name=switch value=0 checked> no<br>
+        <input type="hidden" value={{j.object_id}} name="id">
+        <input type="hidden" value={{j.org_name}} name="orgname">
+        <input type="submit" value='submit'/>
+        </form>
+      </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <hr>
+    <h1>fraud: </h1>
+    <table>
+    <tr>
+    <th>Object_ID</th>
+    <th>Organization Name</th>
+    <th>Country</th>
+    <th>Not Fraud percentage</th>
+    <th>Possible Fraud percentage</th>
+    <th>Fraud percentage</th>
+    <th>time received</th>
+    <th>Contacted</th>
+    </tr>
+    {%for k in fr %}
+    <tr>
+    <td>{{k.object_id}}</td>
+    <td>{{k.org_name}}</td>
+    <td>{{k.country}}</td>
+    <td>{{k.not_fraud}}</td>
+    <td>{{k.maybe}}</td>
+    <td>{{k.fraud}}</td>
+    <td>{{k.time_stamp}}</td>
+    <td>
+        <form action = '{{ url_for('feedback') }}' method= "POST">
+        <input type="radio" name=switch value=1 > yes<br>
+        <input type="radio" name=switch value=0 checked> no<br>
+        <input type="hidden" value={{k.object_id}} name="id">
+        <input type="hidden" value={{k.org_name}} name="orgname">
+        <input type="submit" value='submit'/>
+      </form>
+    </td>
+    </tr>
+    {% endfor %}
+  </table>
+  </body>
+</html>
+
+
+<!-- <p>
+{% for x in nf %}
+object id: {{ x }}<br>
+{% endfor %}
+<br>
+<br>
+<h1>events that could be harmful: </h1>
+{% for x2 in mb %}
+object id: {{ x2 }}<br>
+{% endfor %}
+<br>
+<br>
+<h1>FRAUD!: </h1>
+{% for x3 in fr %}
+object id: {{ x3 }}
+{% endfor %} -->
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>results</title>
+  </head>
+  <body>
+    {% if result %}
+    <h1>premium events: {{ nf }} </h1>
+    <p>Hope you enjoyed :) </p>
+    {% else %}
+    <h1>Hello!</h1>
+    <p>I don't think you submitted your data </p>
+
+    {% endif %}
+  </body>
+</html>
+ -->

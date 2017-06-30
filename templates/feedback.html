@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  </style>
+    <meta charset='utf-8'>
+    <title>feedback</title>
+  </head>
+  <body>
+    {% if nc == 1 %}
+    <h1> object id is removed from the database! </h1>
+
+    {% else %}
+    <h1> contact</h1>
+    <table>
+    <tr>
+    <th>Object_ID</th>
+    <th>Organization Name</th>
+    <th>e-mail</th>
+    </tr>
+
+    <tr>
+    <td>{{id}}</td>
+    <td>{{orgname}}</td>
+    <td>ilovemoney@gmail.com</td>
+
+    </tr>
+  </table>
+    {% endif %}
+    <a href= "http://ec2-34-210-33-132.us-west-2.compute.amazonaws.com:5000/score">Back_to_score_page</a>
+  </body>
+</html>
